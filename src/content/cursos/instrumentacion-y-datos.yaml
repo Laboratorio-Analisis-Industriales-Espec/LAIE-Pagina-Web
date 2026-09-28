@@ -1,0 +1,15 @@
+nombre: "Instrumentación analítica y adquisición de datos"
+area: "Instrumentación"
+semestre: "Transversal · Biomédica / IQ"
+descripcion: "Sensores, interfases y registro experimental."
+profesor: "Por asignar (ejemplo)"
+contacto: "lab.analitica@ejemplo.mx"
+programa:
+  - "Sensores y acondicionamiento de señal"
+  - "Interfases y registro con PC"
+  - "Buenas prácticas de bitácora"
+practicas:
+  - "Multímetro y osciloscopio"
+  - "Sensor de temperatura"
+  - "Adquisición con software libre"
+  - "Mini-proyecto de monitoreo"

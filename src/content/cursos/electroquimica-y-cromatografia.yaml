@@ -1,0 +1,16 @@
+nombre: "Electroquímica analítica y cromatografía"
+area: "Análisis instrumental"
+semestre: "Semestre 6 · IQ / Química"
+descripcion: "Potenciometría, voltamperometría, GC y HPLC básico."
+profesor: "Dr. G. Velázquez Juárez"
+contacto: "lab.analitica@ejemplo.mx"
+programa:
+  - "Potenciometría y electrodos selectivos"
+  - "Voltamperometría cíclica"
+  - "GC y HPLC: parámetros y cuantificación"
+practicas:
+  - "pH y electrodos selectivos"
+  - "Voltamperometría de ferricianuro"
+  - "GC: análisis de alcoholes"
+  - "HPLC: cafeína en bebidas"
+  - "Proyecto integrador"

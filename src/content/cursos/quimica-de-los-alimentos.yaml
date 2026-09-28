@@ -1,0 +1,15 @@
+nombre: "Química de los alimentos I, II, III"
+area: "Bromatología"
+semestre: "Semestres 6–8 · Alimentos-Biotecnología / QFB"
+descripcion: "Composición, aditivos, microbiología básica y etiquetado."
+profesor: "Por asignar (ejemplo)"
+contacto: "lab.analitica@ejemplo.mx"
+programa:
+  - "Humedad, cenizas, proteína, lípidos"
+  - "Aditivos y conservadores"
+  - "Etiquetado y NOM-051"
+practicas:
+  - "Análisis proximal I"
+  - "Análisis proximal II"
+  - "Acidez y peróxidos en aceites"
+  - "Etiquetado nutrimental"

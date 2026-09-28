@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const reglas = await getCollection('reglas');
+const normas = reglas.filter((r) => r.data.categoria === 'norma');
+---
+<Base title="Reglamento y Seguridad | Laboratorio de Análisis Industriales y Especiales" active="/reglamento">
+  <section class="page-hero"><div class="container reveal">
+    <p class="crumbs"><a href="/">Inicio</a> / Reglamento y Seguridad</p>
+    <p class="eyebrow">Rules &amp; Safety</p>
+    <h1>Normas, seguridad y formatos</h1>
+    <p>Contenido editable desde el CMS (colección “Reglamento”). Validar contra normativa institucional vigente.</p>
+  </div></section>
+
+  <section class="section"><div class="container">
+    <div class="section-head reveal"><p class="eyebrow">Normas de uso</p><h2>Reglas de comportamiento y material</h2></div>
+    <div class="reg-grid reveal">
+      {normas.map((r, i) => (
+        <div class="reg-item"><span class="reg-num">{String(i + 1).padStart(2, '0')}</span><p>{r.data.texto}</p></div>
+      ))}
+    </div>
+  </div></section>
+
+  <section class="section section-alt"><div class="container">
+    <div class="section-head reveal"><p class="eyebrow">Protocolos HSE</p><h2>Seguridad, EPP y emergencias</h2></div>
+    <div class="card-grid three reveal">
+      <article class="card"><span class="badge">EPP obligatorio</span><h3>Protección personal</h3><ul class="check-list"><li>Bata de algodón abotonada</li><li>Lentes de seguridad y guantes según riesgo</li><li>Cabello recogido, sin shorts ni sandalias</li></ul></article>
+      <article class="card"><span class="badge">Residuos</span><h3>Insumos y disposición</h3><ul class="check-list"><li>Separa halogenados / no halogenados / acuosos / sólidos</li><li>Etiqueta frasco: contenido, fecha, grupo</li><li>Nunca viertas químicos al drenaje</li></ul></article>
+      <article class="card"><span class="badge">Emergencia</span><h3>Derrames, fuego y primeros auxilios</h3><ul class="check-list"><li>Avisa al técnico, evacúa si hay vapores</li><li>Extintor, regadera y lavaojos: pasillo norte</li><li>Botiquín en ventanilla · Tel. interno en tablón</li></ul></article>
+    </div>
+  </div></section>
+</Base>

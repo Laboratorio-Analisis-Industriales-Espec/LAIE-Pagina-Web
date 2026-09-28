@@ -1,0 +1,67 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  active?: string;
+}
+const { title, description = 'Laboratorio de Análisis Industriales y Especiales.', active = '/' } = Astro.props;
+const nav = [
+  { href: '/', label: 'Inicio', key: '/' },
+  { href: '/cursos', label: 'Cursos', key: '/cursos' },
+  { href: '/proyectos', label: 'Proyectos', key: '/proyectos' },
+  { href: '/infraestructura', label: 'Infraestructura', key: '/infraestructura' },
+  { href: '/personal', label: 'Personal', key: '/personal' },
+  { href: '/reglamento', label: 'Reglamento', key: '/reglamento' },
+  { href: '/contacto', label: 'Contacto', key: '/contacto' },
+];
+const year = new Date().getFullYear();
+---
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="site-header" id="site-header">
+      <nav class="nav container" aria-label="Navegación principal">
+        <a href="/" class="brand">
+          <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true"><path class="mark-glass" d="M14 8h20v7l-6 6v11l-4 8-4-8V21l-6-6z"/><circle class="mark-drop" cx="24" cy="34" r="3"/></svg>
+          <span class="brand-text">Analítica&nbsp;IE</span>
+        </a>
+        <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-menu"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button>
+        <ul class="nav-menu" id="nav-menu">
+          {nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class:list={['nav-link', { active: active === item.key }, { 'nav-cta': item.key === '/contacto' }]}
+              >{item.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-brand">Laboratorio de Análisis Industriales y Especiales</p>
+          <p class="footer-tag">Espacio de aprendizaje práctico para la formación de ingenieros. Tercera planta.</p>
+        </div>
+        <nav class="footer-nav" aria-label="Navegación de pie">
+          {nav.map((item) => (<a href={item.href}>{item.label}</a>))}
+        </nav>
+        <p class="copyright">© {year} Laboratorio de Análisis Industriales y Especiales.</p>
+      </div>
+    </footer>
+    <script src="/script.js" defer></script>
+  </body>
+</html>

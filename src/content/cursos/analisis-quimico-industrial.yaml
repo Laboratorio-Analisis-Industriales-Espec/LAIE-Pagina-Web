@@ -1,0 +1,15 @@
+nombre: "Análisis químico industrial"
+area: "Industrial"
+semestre: "Semestre 7 · IQ"
+descripcion: "Control de calidad en proceso, muestreo y validación."
+profesor: "Por asignar (ejemplo)"
+contacto: "lab.analitica@ejemplo.mx"
+programa:
+  - "Muestreo y preparación de muestra industrial"
+  - "Control estadístico de calidad"
+  - "Validación de métodos"
+practicas:
+  - "Muestreo de sólidos y líquidos"
+  - "Cartas de control"
+  - "Validación: precisión y exactitud"
+  - "Auditoría simulada"

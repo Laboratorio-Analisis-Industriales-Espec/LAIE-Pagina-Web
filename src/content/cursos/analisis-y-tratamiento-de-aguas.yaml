@@ -1,0 +1,15 @@
+nombre: "Análisis y tratamiento de aguas"
+area: "Industrial"
+semestre: "Semestre 7 · IQ / Ambiental"
+descripcion: "Parámetros fisicoquímicos, dureza, DQO/DBO y tratamiento."
+profesor: "Por asignar (ejemplo)"
+contacto: "lab.analitica@ejemplo.mx"
+programa:
+  - "Parámetros: pH, conductividad, dureza, cloruros"
+  - "DQO, DBO y sólidos"
+  - "Coagulación-floculación y desinfección"
+practicas:
+  - "Muestreo y preservación"
+  - "Dureza y alcalinidad"
+  - "DQO y prueba de jarras"
+  - "Reporte de calidad de efluente"

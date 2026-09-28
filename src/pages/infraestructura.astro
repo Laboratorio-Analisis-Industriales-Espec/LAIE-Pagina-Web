@@ -1,0 +1,53 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const equipos = await getCollection('equipos');
+const pill = (req: string) =>
+  req.includes('Libre') ? 'pill free' : req.includes('Préstamo') ? 'pill free' : 'pill info';
+---
+<Base title="Infraestructura y Equipamiento | Laboratorio de Análisis Industriales y Especiales" active="/infraestructura">
+  <section class="page-hero"><div class="container reveal">
+    <p class="crumbs"><a href="/">Inicio</a> / Infraestructura y Equipamiento</p>
+    <p class="eyebrow">Facilities &amp; Equipment</p>
+    <h1>Mesas, equipos y software</h1>
+    <p>Inventario editable desde el CMS (colección “Equipos e infraestructura”). La reserva ahora sí llega al backend (/api/reserva).</p>
+  </div></section>
+
+  <section class="section section-alt"><div class="container">
+    <div class="section-head reveal"><p class="eyebrow">Inventario</p><h2>Equipos y herramientas</h2></div>
+    <div class="table-wrap reveal"><table class="data">
+      <thead><tr><th>Equipo</th><th>Cant.</th><th>Uso típico</th><th>Requisito</th></tr></thead>
+      <tbody>
+        {equipos.map((e) => (
+          <tr>
+            <td>{e.data.nombre}</td>
+            <td>{e.data.cantidad}</td>
+            <td>{e.data.uso}</td>
+            <td><span class={pill(e.data.requisito)}>{e.data.requisito}</span></td>
+          </tr>
+        ))}
+      </tbody>
+    </table></div>
+  </div></section>
+
+  <section class="section section-alt" id="reserva"><div class="container">
+    <div class="section-head reveal"><p class="eyebrow">Solicitud / Reserva</p><h2>Reserva espacio o equipo</h2><p class="section-intro">Anticipación mínima 48 h. Máximo 3 h por reserva.</p></div>
+    <div class="contact-grid">
+      <div class="reveal"><ul class="contact-list">
+        <li><span class="contact-label">Reglas</span><span>Anticipación mínima 48 h. Máximo 3 h por reserva. Cancela 12 h antes.</span></li>
+        <li><span class="contact-label">Prioridad</span><span>Clases programadas &gt; tesis registradas &gt; práctica libre.</span></li>
+        <li><span class="contact-label">Entrega</span><span>Deja mesa limpia, registra uso instrumental y reporta fallas.</span></li>
+      </ul></div>
+      <form class="contact-form reveal" data-validate data-api="/api/reserva" novalidate>
+        <div class="field"><label for="r-nombre">Nombre</label><input id="r-nombre" name="nombre" required placeholder="Tu nombre" /></div>
+        <div class="field"><label for="r-correo">Correo institucional</label><input id="r-correo" type="email" name="correo" required placeholder="tucorreo@ejemplo.mx" /></div>
+        <div class="field"><label for="r-recurso">Recurso</label><select id="r-recurso" name="recurso" required><option value="">Selecciona…</option><option>Mesa de trabajo (horario libre)</option><option>UV-Vis</option><option>GC / HPLC</option><option>Campana de extracción</option><option>Set de instrumentación</option></select></div>
+        <div class="field"><label for="r-fecha">Fecha y hora deseada</label><input id="r-fecha" name="fecha" required placeholder="Ej. 22 may, 10:00–13:00" /></div>
+        <div class="field"><label for="r-motivo">Motivo</label><textarea id="r-motivo" name="motivo" rows="3" required placeholder="Materia, práctica o proyecto"></textarea></div>
+        <button class="btn btn-primary" type="submit">Enviar solicitud</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div></section>
+</Base>

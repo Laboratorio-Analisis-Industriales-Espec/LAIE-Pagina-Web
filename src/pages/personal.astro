@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const personal = await getCollection('personal');
+const grupo = (g: string) => personal.filter((p) => p.data.grupo === g);
+---
+<Base title="Personal Docente y Técnico | Laboratorio de Análisis Industriales y Especiales" active="/personal">
+  <section class="page-hero"><div class="container reveal">
+    <p class="crumbs"><a href="/">Inicio</a> / Personal</p>
+    <p class="eyebrow">Staff</p>
+    <h1>Personal docente y técnico</h1>
+    <p>Responsable del laboratorio, profesores, técnicos y auxiliares. Contenido editable desde el CMS (colección “Personal”).</p>
+  </div></section>
+
+  <section class="section"><div class="container">
+    <div class="section-head reveal"><p class="eyebrow">Encargado / Jefe</p><h2>Responsable del laboratorio</h2></div>
+    <div class="people-grid reveal">
+      {grupo('responsable').map((p) => (
+        <article class="person">
+          <div class="avatar">{p.data.iniciales || p.data.nombre.slice(0, 2).toUpperCase()}</div>
+          <h3>{p.data.nombre}</h3>
+          <p class="role">{p.data.rol}</p>
+          <p class="bio">{p.data.bio}</p>
+          {p.data.email && <p><a class="mail" href={`mailto:${p.data.email}`}>{p.data.email}</a></p>}
+        </article>
+      ))}
+    </div>
+  </div></section>
+
+  <section class="section section-alt"><div class="container">
+    <div class="section-head reveal"><p class="eyebrow">Profesores / Instructores</p><h2>Quienes imparten asignaturas</h2></div>
+    <div class="people-grid reveal">
+      {grupo('profesores').map((p) => (
+        <article class="person">
+          <div class="avatar">{p.data.iniciales || p.data.nombre.slice(0, 2).toUpperCase()}</div>
+          <h3>{p.data.nombre}</h3>
+          <p class="role">{p.data.rol}</p>
+          <p class="bio">{p.data.bio}</p>
+          {p.data.email && <p><a class="mail" href={`mailto:${p.data.email}`}>{p.data.email}</a></p>}
+        </article>
+      ))}
+    </div>
+  </div></section>
+
+  <section class="section"><div class="container">
+    <div class="section-head reveal"><p class="eyebrow">Técnicos y auxiliares</p><h2>Soporte, equipos y seguridad</h2></div>
+    <div class="people-grid reveal">
+      {grupo('tecnicos').map((p) => (
+        <article class="person">
+          <div class="avatar">{p.data.iniciales || p.data.nombre.slice(0, 2).toUpperCase()}</div>
+          <h3>{p.data.nombre}</h3>
+          <p class="role">{p.data.rol}</p>
+          <p class="bio">{p.data.bio}</p>
+          {p.data.email && <p><a class="mail" href={`mailto:${p.data.email}`}>{p.data.email}</a></p>}
+        </article>
+      ))}
+    </div>
+  </div></section>
+</Base>

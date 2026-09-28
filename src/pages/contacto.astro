@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import sitio from '../content/sitio.json';
+---
+<Base title="Contacto y Horarios | Laboratorio de Análisis Industriales y Especiales" active="/contacto">
+  <section class="page-hero"><div class="container reveal">
+    <p class="crumbs"><a href="/">Inicio</a> / Contacto y Horarios</p>
+    <p class="eyebrow">Contact &amp; Schedule</p>
+    <h1>Ubicación, horarios y contacto</h1>
+    <p>Encuéntranos en la tercera planta. Los datos de contacto se editan en el CMS (“Datos generales del sitio”).</p>
+  </div></section>
+
+  <section class="section"><div class="container">
+    <div class="section-head reveal"><p class="eyebrow">Ubicación</p><h2>Edificio y acceso</h2></div>
+    <div class="card-grid two reveal">
+      <article class="card"><h3>Tercera planta · Aula / Cubículo del laboratorio</h3><p>{sitio.ubicacion}</p></article>
+      <article class="card"><h3>Cómo llegar</h3><ul class="check-list"><li>Entrada principal → edificio de laboratorios → nivel 3</li><li>Muestra credencial en control de acceso</li><li>Regístrate en bitácora de visitas</li></ul><p class="support-note">Personas externas: agenda previa por correo con el responsable.</p></article>
+    </div>
+  </div></section>
+
+  <section class="section"><div class="container">
+    <div class="section-head reveal"><p class="eyebrow">Contacto</p><h2>Escríbenos</h2></div>
+    <div class="contact-grid">
+      <div class="contact-info reveal"><ul class="contact-list">
+        <li><span class="contact-label">Ubicación</span><span>{sitio.ubicacion}</span></li>
+        <li><span class="contact-label">Teléfono</span><span>{sitio.telefono}</span></li>
+        <li><span class="contact-label">Correo</span><span>{sitio.correo}</span></li>
+      </ul></div>
+      <form class="contact-form reveal" data-validate data-api="/api/contacto" novalidate>
+        <div class="field"><label for="nombre">Nombre</label><input id="nombre" name="nombre" required placeholder="Tu nombre" /></div>
+        <div class="field"><label for="correo">Correo</label><input id="correo" type="email" name="correo" required placeholder="tucorreo@ejemplo.mx" /></div>
+        <div class="field"><label for="mensaje">Mensaje</label><textarea id="mensaje" name="mensaje" rows="4" required placeholder="¿En qué podemos ayudarte?"></textarea></div>
+        <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div></section>
+</Base>

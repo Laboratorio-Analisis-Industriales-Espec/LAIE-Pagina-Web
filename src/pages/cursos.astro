@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const cursos = await getCollection('cursos');
+const slug = (s: string) =>
+  s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+---
+<Base title="Cursos y Materias | Laboratorio de Análisis Industriales y Especiales" active="/cursos">
+  <section class="page-hero"><div class="container reveal">
+    <p class="crumbs"><a href="/">Inicio</a> / Cursos y Materias</p>
+    <p class="eyebrow">Courses / Subjects</p>
+    <h1>Catálogo de materias</h1>
+    <p>Asignaturas atendidas por semestre y plan de estudios. Contenido editable desde el CMS (colección “Cursos y materias”).</p>
+  </div></section>
+
+  <section class="section"><div class="container">
+    <div class="section-head reveal"><p class="eyebrow">Listado</p><h2>Materias por área</h2></div>
+    <div class="card-grid three reveal">
+      {cursos.map((c) => (
+        <article class="card">
+          <span class="badge">{c.data.area}</span>
+          <h3>{c.data.nombre}</h3>
+          <p>{c.data.descripcion}</p>
+          <p class="meta"><a href={`#${slug(c.data.nombre)}`}>Ver ficha →</a></p>
+        </article>
+      ))}
+    </div>
+  </div></section>
+
+  <section class="section section-alt" id="guias"><div class="container">
+    <div class="section-head reveal"><p class="eyebrow">Fichas por materia</p><h2>Programa, calendario y descargas</h2></div>
+    <div style="display:grid;gap:1.6rem">
+      {cursos.map((c) => (
+        <article class="course reveal" id={slug(c.data.nombre)}>
+          <div class="course-head"><h3>{c.data.nombre}</h3><p>{c.data.semestre}</p></div>
+          <div class="course-body">
+            <div>
+              <div class="docente"><strong>Profesor: {c.data.profesor}</strong>Contacto: {c.data.contacto}</div>
+              <h4>Programa sintético</h4>
+              <ul class="check-list">{c.data.programa.map((t) => (<li>{t}</li>))}</ul>
+            </div>
+            <div>
+              <h4>Calendario de prácticas</h4>
+              <ol>{c.data.practicas.map((p) => (<li>{p}</li>))}</ol>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div></section>
+</Base>

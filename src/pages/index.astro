@@ -1,0 +1,106 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import sitio from '../content/sitio.json';
+
+const avisos = await getCollection('avisos');
+---
+<Base title="Inicio | Laboratorio de Análisis Industriales y Especiales" active="/">
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">Laboratorio de Análisis Industriales y Especiales</p>
+        <h1>{sitio.heroTitulo}</h1>
+        <p class="hero-lead">{sitio.heroSub}</p>
+        <p>Centro especializado en enseñanza analítica, investigación y servicios tecnológicos. Formamos profesionales en química instrumental, bromatología y control de calidad, con soporte a proyectos de licenciatura y posgrado.</p>
+        <div class="hero-actions">
+          <a href="/cursos" class="btn btn-primary">Ver cursos y materias</a>
+          <a href="/infraestructura#reserva" class="btn btn-ghost">Reservar equipo</a>
+        </div>
+      </div>
+      <div class="hero-visual reveal" aria-hidden="true">
+        <svg class="lab-svg" viewBox="0 0 320 320">
+          <rect class="svg-panel" x="20" y="20" width="280" height="280" rx="28"/>
+          <path class="svg-mol" d="M172 74l20-14 20 14-20 14z"/>
+          <circle class="svg-atom" cx="172" cy="74" r="5"/><circle class="svg-atom" cx="192" cy="60" r="5"/><circle class="svg-atom" cx="212" cy="74" r="5"/>
+          <path class="svg-bond" d="M196 74v22"/><circle class="svg-atom" cx="196" cy="102" r="5"/>
+          <path class="svg-flask" d="M108 62h32v74l34 34a14 14 0 0 1-10 24h-80a14 14 0 0 1-10-24l34-34z"/>
+          <path class="svg-liquid-fill" d="M140 150l-6-6V78h8v66z"/>
+          <path class="svg-bubble" d="M138 176v16"/>
+          <path class="svg-wave" d="M118 150h2l6 8 10-10 10 10 10-10 10 8"/>
+          <path class="svg-wave" d="M118 158h2l6 8 10-10 10 10 10-10 10 8"/>
+          <path class="svg-ring" d="M244 168m-20 0a20 20 0 1 0 40 0a20 20 0 1 0-40 0"/>
+          <circle class="svg-atom" cx="244" cy="136" r="5"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Acceso rápido</p>
+        <h2>Lo esencial en un clic</h2>
+      </div>
+      <div class="card-grid three reveal">
+        <article class="card">
+          <div class="card-icon">§</div>
+          <h3>Reglamentos</h3>
+          <p>Normas de uso, seguridad y formatos oficiales del laboratorio.</p>
+          <p class="meta"><a href="/reglamento" class="btn btn-ghost btn-sm">Ver reglamento →</a></p>
+        </article>
+        <article class="card">
+          <div class="card-icon">◷</div>
+          <h3>Reserva de horarios y equipos</h3>
+          <p>Solicita espacio o instrumental fuera del horario de clase.</p>
+          <p class="meta"><a href="/infraestructura#reserva" class="btn btn-ghost btn-sm">Reservar →</a></p>
+        </article>
+        <article class="card">
+          <div class="card-icon">⇩</div>
+          <h3>Guías de laboratorio</h3>
+          <p>Descarga manuales de prácticas y lecturas por materia.</p>
+          <p class="meta"><a href="/cursos#guias" class="btn btn-ghost btn-sm">Descargar →</a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Avisos y novedades</p>
+        <h2>Tablón del laboratorio</h2>
+      </div>
+      <div class="card-grid three reveal">
+        {avisos.map((a) => (
+          <article class:list={['notice', { warn: a.data.estilo === 'warn', urgent: a.data.estilo === 'urgent' }]}>
+            <time>{a.data.categoria}</time>
+            <h3>{a.data.titulo}</h3>
+            <p>{a.data.descripcion}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Propósito del laboratorio</p>
+        <h2>Misión docente</h2>
+      </div>
+      <div class="card-grid two reveal">
+        <article class="card">
+          <span class="badge">Misión</span>
+          <h3>Formar con práctica real</h3>
+          <p>{sitio.mision}</p>
+        </article>
+        <article class="card">
+          <span class="badge">Visión</span>
+          <h3>Vinculación e investigación</h3>
+          <p>{sitio.vision}</p>
+        </article>
+      </div>
+    </div>
+  </section>
+</Base>

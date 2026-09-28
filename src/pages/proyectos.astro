@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const proyectos = await getCollection('proyectos');
+const porTipo = (t: string) => proyectos.filter((p) => p.data.tipo === t);
+const badgeClass = (tipo: string) => (tipo === 'tesis' ? 'badge blue' : tipo === 'club' ? 'badge light' : 'badge');
+---
+<Base title="Proyectos | Laboratorio de Análisis Industriales y Especiales" active="/proyectos">
+  <section class="page-hero"><div class="container reveal">
+    <p class="crumbs"><a href="/">Inicio</a> / Proyectos</p>
+    <p class="eyebrow">Projects</p>
+    <h1>Proyectos del laboratorio</h1>
+    <p>Integradores de asignatura, tesis de titulación e iniciativas estudiantiles. Contenido editable desde el CMS (colección “Proyectos”).</p>
+  </div></section>
+
+  <section class="section"><div class="container">
+    <div class="section-head reveal"><p class="eyebrow">Asignatura</p><h2>Proyectos integradores destacados</h2></div>
+    <div class="card-grid three reveal">
+      {porTipo('integrador').map((p) => (
+        <article class="card">
+          <span class={badgeClass(p.data.tipo)}>{p.data.badge || 'Integrador'}</span>
+          <h3>{p.data.titulo}</h3>
+          <p>{p.data.descripcion}</p>
+          {p.data.meta && <p class="meta">{p.data.meta}</p>}
+        </article>
+      ))}
+    </div>
+  </div></section>
+
+  <section class="section section-alt"><div class="container">
+    <div class="section-head reveal"><p class="eyebrow">Titulación / Tesis</p><h2>Fin de grado y máster</h2></div>
+    <div class="card-grid two reveal">
+      {porTipo('tesis').map((p) => (
+        <article class="card">
+          <span class={badgeClass(p.data.tipo)}>{p.data.badge || 'Tesis'}</span>
+          <h3>{p.data.titulo}</h3>
+          <p>{p.data.descripcion}</p>
+          {p.data.meta && <p class="meta">{p.data.meta}</p>}
+        </article>
+      ))}
+    </div>
+  </div></section>
+
+  <section class="section"><div class="container">
+    <div class="section-head reveal"><p class="eyebrow">Estudiantes / Asociaciones</p><h2>Clubes y extracurriculares</h2></div>
+    <div class="card-grid two reveal">
+      {porTipo('club').map((p) => (
+        <article class="card">
+          <span class={badgeClass(p.data.tipo)}>{p.data.badge || 'Club'}</span>
+          <h3>{p.data.titulo}</h3>
+          <p>{p.data.descripcion}</p>
+          {p.data.meta && <p class="meta">{p.data.meta}</p>}
+        </article>
+      ))}
+    </div>
+  </div></section>
+</Base>

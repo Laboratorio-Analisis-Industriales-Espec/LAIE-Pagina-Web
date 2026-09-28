@@ -1,0 +1,16 @@
+nombre: "Métodos ópticos de análisis químico instrumental"
+area: "Análisis instrumental"
+semestre: "Semestre 5 · IQ / Química / QFB"
+descripcion: "Espectrofotometría UV-Vis, IR y emisión. Calibración y cuantificación."
+profesor: "Dra. M. Torres (ejemplo)"
+contacto: "m.torres@ejemplo.mx"
+programa:
+  - "Fundamentos de espectroscopía y ley de Beer-Lambert"
+  - "Curvas de calibración y cifras de mérito"
+  - "UV-Vis cuantitativo e IR cualitativo"
+practicas:
+  - "Seguridad y manejo del UV-Vis"
+  - "Curva de calibración de cafeína"
+  - "Determinación de hierro en suplementos"
+  - "IR: identificación de grupos funcionales"
+  - "Examen práctico"
