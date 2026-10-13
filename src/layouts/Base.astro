@@ -1,4 +1,6 @@
 ---
+import Logo from '../components/Logo.astro';
+
 interface Props {
   title: string;
   description?: string;
@@ -24,12 +26,16 @@ const year = new Date().getFullYear();
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="stylesheet" href="/styles.css" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body>
-    <header class="site-header" id="site-header">
+    <header class:list={['site-header', active === '/' ? 'header--home' : 'header--inner']} id="site-header">
       <nav class="nav container" aria-label="Navegación principal">
         <a href="/" class="brand">
-          <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true"><path class="mark-glass" d="M14 8h20v7l-6 6v11l-4 8-4-8V21l-6-6z"/><circle class="mark-drop" cx="24" cy="34" r="3"/></svg>
+          <span class="brand-marks">
+            <Logo class="brand-mark brand-mark-dark" />
+            <Logo class="brand-mark brand-mark-light" decorative={true} />
+          </span>
           <span class="brand-text">Analítica&nbsp;IE</span>
         </a>
         <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-menu"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button>
@@ -52,9 +58,12 @@ const year = new Date().getFullYear();
 
     <footer class="site-footer">
       <div class="container footer-grid">
-        <div>
-          <p class="footer-brand">Laboratorio de Análisis Industriales y Especiales</p>
-          <p class="footer-tag">Espacio de aprendizaje práctico para la formación de ingenieros. Tercera planta.</p>
+        <div class="footer-brand-block">
+          <Logo class="footer-logo-white" decorative={true} />
+          <div class="footer-brand-text">
+            <p class="footer-brand">Laboratorio de Análisis<br />Industriales y Especiales</p>
+            <p class="footer-tag">Espacio de aprendizaje práctico para la formación de ingenieros. Tercera planta.</p>
+          </div>
         </div>
         <nav class="footer-nav" aria-label="Navegación de pie">
           {nav.map((item) => (<a href={item.href}>{item.label}</a>))}

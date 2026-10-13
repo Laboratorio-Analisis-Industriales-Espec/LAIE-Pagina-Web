@@ -26,6 +26,32 @@
     menu.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", closeMenu); });
   }
 
+  /* Misma página: subir arriba con easing rápido en vez de recargar */
+  var current = window.location.pathname.replace(/\/+$/, '') || '/';
+  function fastScrollTop() {
+    var start = window.scrollY, dur = 250, t0 = null;
+    if (!start) return;
+    function step(t) {
+      if (!t0) t0 = t;
+      var p = Math.min((t - t0) / dur, 1);
+      var e = Math.sin((p * Math.PI) / 2);
+      window.scrollTo(0, start * (1 - e));
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  document.querySelectorAll('.nav-menu a, .brand').forEach(function (a) {
+    var href = a.getAttribute('href');
+    if (!href || href.charAt(0) !== '/') return;
+    var target = href.replace(/\/+$/, '') || '/';
+    if (target === current) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        closeMenu();
+        fastScrollTop();
+      });
+    }
+  });
   function onScroll() {
     if (!header) return;
     header.classList.toggle("scrolled", window.scrollY > 12);
