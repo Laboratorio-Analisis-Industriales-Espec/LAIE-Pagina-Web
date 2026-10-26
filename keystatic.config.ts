@@ -4,11 +4,10 @@ import { config, fields, collection, singleton } from '@keystatic/core';
 // y en el singleton `sitio`. Keystatic lo edita localmente en /keystatic
 // y en producción contra GitHub (ver MIGRACION_CMS.md para activar storage github).
 //
-// Para producción con edición en vivo, cambiar a:
-//   storage: { kind: 'github', repo: 'TU_USUARIO/TU_REPO' }
-// y configurar la GitHub App de Keystatic (ver doc).
+// Para producción con edición en vivo, usa storage github.
+// Se requiere GitHub App + variables de entorno en Vercel (ver MIGRACION_CMS.md).
 export default config({
-  storage: { kind: 'local' },
+  storage: { kind: 'github', repo: 'Laboratorio-Analisis-Industriales-Espec/LAIE-Pagina-Web' },
 
   singletons: {
     sitio: singleton({
