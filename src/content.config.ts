@@ -23,7 +23,7 @@ const personal = defineCollection({
     nombre: z.string(),
     rol: z.string(),
     grupo: z.enum(['responsable', 'profesores', 'tecnicos']),
-    bio: z.string(),
+    bio: z.string().default(''),
     email: z.string().default(''),
     iniciales: z.string().default(''),
       foto: z.string().optional(),
