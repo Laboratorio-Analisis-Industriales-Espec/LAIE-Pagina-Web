@@ -1,0 +1,165 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const horario = await getCollection('horario');
+const csv = horario[0]?.data.csv || '';
+
+function parseCSV(line: string) {
+  const cells: string[] = [];
+  let current = '';
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i];
+    if (char === '"' && line[i + 1] === '"') {
+      current += '"';
+      i++;
+      continue;
+    }
+    if (char === '"') {
+      inQuotes = !inQuotes;
+      continue;
+    }
+    if (char === ',' && !inQuotes) {
+      cells.push(current);
+      current = '';
+      continue;
+    }
+    current += char;
+  }
+  cells.push(current);
+  return cells.map((c) => c.trim());
+}
+
+function parseHorario(csvText: string) {
+  if (!csvText) return { header: [] as string[], rows1: [] as string[][], rows2: [] as string[][] };
+
+  const lines = csvText
+    .split(/\r?\n/)
+    .map((l) => l.replace(/\r$/, ''))
+    .filter((l) => l.trim().length > 0);
+
+  const parsed = lines.map((line) => parseCSV(line));
+
+  let headerRowIndex = -1;
+  for (let i = 0; i < parsed.length; i++) {
+    const row = parsed[i];
+    if (row.some((c) => c.toUpperCase().includes('LUNES') || c.toUpperCase().includes('MARTES') || c.toUpperCase().includes('MIÉRCOLES') || c.toUpperCase().includes('JUEVES') || c.toUpperCase().includes('VIERNES') || c.toUpperCase().includes('SABADO'))) {
+      headerRowIndex = i;
+      break;
+    }
+  }
+
+  const header = headerRowIndex >= 0 ? parsed[headerRowIndex] : [];
+  const rows1: string[][] = [];
+  const rows2: string[][] = [];
+
+  for (let i = headerRowIndex + 1; i < parsed.length; i++) {
+    const row = parsed[i];
+    if (row.length === 0) continue;
+
+    const espacioCell = row.find((c) => c.toUpperCase().includes('ESPACIO'));
+    if (espacioCell) {
+      if (espacioCell.toUpperCase().includes('ESPACIO 1')) {
+        rows1.push(row);
+        continue;
+      }
+      if (espacioCell.toUpperCase().includes('ESPACIO 2')) {
+        rows2.push(row);
+        continue;
+      }
+      if (espacioCell.toUpperCase().includes('ESPACIO 3')) {
+        rows1.push(row);
+        continue;
+      }
+    }
+
+    // Si no hay etiqueta de espacio, intenta asignar por patrón
+    const hasLab = row.some((c) => c.toUpperCase().includes('LABORATORIO'));
+    const hasSubject = row.some((c) => /\([^)]+\)/.test(c));
+    if (hasLab || hasSubject) {
+      if (rows1.length <= rows2.length) {
+        rows1.push(row);
+      } else {
+        rows2.push(row);
+      }
+    }
+  }
+
+  return { header, rows1, rows2 };
+}
+
+const { header, rows1, rows2 } = parseHorario(csv);
+---
+
+<Base title="Horario | Laboratorio de Análisis Industriales y Especiales" active="/horario">
+  <section class="page-hero">
+    <div class="container reveal">
+      <p class="crumbs"><a href="/">Inicio</a> / Horario</p>
+      <p class="eyebrow">Horarios</p>
+      <h1>Horario del Laboratorio</h1>
+      <p>Horario de prácticas por espacio. Editable desde el CMS.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      {csv ? (
+        <div class="schedule-grid">
+          <div class="schedule-col">
+            <h2 class="schedule-title">Espacio 1</h2>
+            <div class="table-wrap">
+              <table class="data schedule-table">
+                <thead>
+                  <tr>
+                    {header.map((h, i) => (
+                      <th>{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {rows1.map((row, i) => (
+                    <tr>
+                      {row.map((cell, j) => (
+                        <td class={cell.toUpperCase().includes('LABORATORIO S/ SERVICIO') ? 'servicio' : ''}>{cell}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="schedule-col">
+            <h2 class="schedule-title">Espacio 2</h2>
+            <div class="table-wrap">
+              <table class="data schedule-table">
+                <thead>
+                  <tr>
+                    {header.map((h, i) => (
+                      <th>{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {rows2.map((row, i) => (
+                    <tr>
+                      {row.map((cell, j) => (
+                        <td class={cell.toUpperCase().includes('LABORATORIO S/ SERVICIO') ? 'servicio' : ''}>{cell}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div class="notice">
+          <h3>Sin horario configurado</h3>
+          <p>Agrega el CSV en Keystatic → Horario del laboratorio</p>
+        </div>
+      )}
+    </div>
+  </section>
+</Base>

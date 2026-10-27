@@ -69,4 +69,11 @@ const avisos = defineCollection({
   }),
 });
 
-export const collections = { cursos, personal, proyectos, equipos, reglas, avisos };
+const horario = defineCollection({
+  loader: glob({ pattern: 'horario.json', base: './src/content' }),
+  schema: z.object({
+    csv: z.string().default(''),
+  }),
+});
+
+export const collections = { cursos, personal, proyectos, equipos, reglas, avisos, horario };

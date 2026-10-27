@@ -54,6 +54,18 @@ export default config({
         }),
       },
     }),
+    horario: singleton({
+      label: 'Horario del laboratorio',
+      path: 'src/content/horario',
+      format: { data: 'json' },
+      schema: {
+        csv: fields.text({
+          label: 'Tabla CSV del horario',
+          multiline: true,
+          description: 'Pega aquí el CSV tal como lo tienes. Se separará automáticamente por Espacio 1 y Espacio 2.',
+        }),
+      },
+    }),
   },
 
   collections: {
