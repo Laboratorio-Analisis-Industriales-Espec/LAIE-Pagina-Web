@@ -1,6 +1,8 @@
-nombre: "Dr. Gilberto Velázquez Juárez"
-rol: "Jefe de Laboratorio"
-grupo: "responsable"
-bio: "Planeación académica, seguridad, vinculación y autorización de uso instrumental."
-email: "lab.analitica@ejemplo.mx"
-iniciales: "GVJ"
+nombre: Dr. Gilberto Velázquez Juárez
+rol: Responsable de Laboratorio
+grupo: responsable
+bio: >-
+  Planeación académica, seguridad, vinculación y autorización de uso
+  instrumental.
+email: lab.analitica@ejemplo.mx
+iniciales: GVJ
