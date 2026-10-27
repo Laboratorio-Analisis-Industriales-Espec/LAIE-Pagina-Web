@@ -17,8 +17,8 @@ const profesores = personal.filter((p) => p.data.grupo === 'profesores');
   </div></section>
 
   <section class="section"><div class="container">
-    <div class="section-head reveal"><p class="eyebrow">Jefatura</p><h2>Jefe de Laboratorio</h2></div>
-    {jefe.map((p) => (
+    <div class="section-head reveal"><p class="eyebrow">Jefatura</p><h2>Responsable de Laboratorio</h2></div>
+    {Responsable.map((p) => (
       <article class="leader reveal">
         {p.data.foto ? (
           <img class="avatar avatar-img" src={p.data.foto} alt={`Foto de ${p.data.nombre}`} loading="lazy" decoding="async" />
