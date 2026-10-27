@@ -109,6 +109,11 @@ export default config({
         bio: fields.text({ label: 'Semblanza', multiline: true }),
         email: fields.text({ label: 'Correo (opcional)', defaultValue: '' }),
         iniciales: fields.text({ label: 'Iniciales (avatar)', defaultValue: '' }),
+        foto: fields.image({
+          label: 'Foto de perfil',
+          directory: 'public/personal',
+          publicPath: '/personal/',
+        }),
       },
     }),
 

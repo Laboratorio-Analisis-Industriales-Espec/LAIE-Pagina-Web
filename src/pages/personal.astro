@@ -20,7 +20,11 @@ const profesores = personal.filter((p) => p.data.grupo === 'profesores');
     <div class="section-head reveal"><p class="eyebrow">Jefatura</p><h2>Jefe de Laboratorio</h2></div>
     {jefe.map((p) => (
       <article class="leader reveal">
-        <div class="avatar">{p.data.iniciales || p.data.nombre.slice(0, 2).toUpperCase()}</div>
+        {p.data.foto ? (
+          <img class="avatar avatar-img" src={p.data.foto} alt={`Foto de ${p.data.nombre}`} loading="lazy" decoding="async" />
+        ) : (
+          <div class="avatar">{p.data.iniciales || p.data.nombre.slice(0, 2).toUpperCase()}</div>
+        )}
         <div>
           <h3>{p.data.nombre}</h3>
           <p class="role">{p.data.rol}</p>
@@ -36,7 +40,11 @@ const profesores = personal.filter((p) => p.data.grupo === 'profesores');
     <div class="people-grid reveal">
       {matutino.map((p) => (
         <article class="person">
-          <div class="avatar">{p.data.iniciales || p.data.nombre.slice(0, 2).toUpperCase()}</div>
+          {p.data.foto ? (
+            <img class="avatar avatar-img" src={p.data.foto} alt={`Foto de ${p.data.nombre}`} loading="lazy" decoding="async" />
+          ) : (
+            <div class="avatar">{p.data.iniciales || p.data.nombre.slice(0, 2).toUpperCase()}</div>
+          )}
           <h3>{p.data.nombre}</h3>
           <p class="role">{p.data.rol}</p>
           <p class="bio">{p.data.bio}</p>
@@ -51,7 +59,11 @@ const profesores = personal.filter((p) => p.data.grupo === 'profesores');
     <div class="people-grid reveal">
       {vespertino.map((p) => (
         <article class="person">
-          <div class="avatar">{p.data.iniciales || p.data.nombre.slice(0, 2).toUpperCase()}</div>
+          {p.data.foto ? (
+            <img class="avatar avatar-img" src={p.data.foto} alt={`Foto de ${p.data.nombre}`} loading="lazy" decoding="async" />
+          ) : (
+            <div class="avatar">{p.data.iniciales || p.data.nombre.slice(0, 2).toUpperCase()}</div>
+          )}
           <h3>{p.data.nombre}</h3>
           <p class="role">{p.data.rol}</p>
           <p class="bio">{p.data.bio}</p>
@@ -67,7 +79,11 @@ const profesores = personal.filter((p) => p.data.grupo === 'profesores');
       <div class="people-grid reveal">
         {profesores.map((p) => (
           <article class="person">
-            <div class="avatar">{p.data.iniciales || p.data.nombre.slice(0, 2).toUpperCase()}</div>
+            {p.data.foto ? (
+              <img class="avatar avatar-img" src={p.data.foto} alt={`Foto de ${p.data.nombre}`} loading="lazy" decoding="async" />
+            ) : (
+              <div class="avatar">{p.data.iniciales || p.data.nombre.slice(0, 2).toUpperCase()}</div>
+            )}
             <h3>{p.data.nombre}</h3>
             <p class="role">{p.data.rol}</p>
             <p class="bio">{p.data.bio}</p>

@@ -26,6 +26,7 @@ const personal = defineCollection({
     bio: z.string(),
     email: z.string().default(''),
     iniciales: z.string().default(''),
+      foto: z.string().optional(),
   }),
 });
 
