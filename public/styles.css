@@ -245,13 +245,17 @@ table.data tr:nth-child(even) td { background: var(--blue-50); }
 .avatar-img { object-fit: cover; object-position: center; background: #fff; }
 
 /* Horario */
-.schedule-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; align-items: start; }
-.schedule-col { display: flex; flex-direction: column; gap: 1rem; }
-.schedule-title { font-family: var(--font-head); font-size: 1.4rem; font-weight: 700; color: var(--blue-900); }
-.schedule-table { min-width: 100%; font-size: .85rem; }
+.schedule-wrap { display: flex; flex-direction: column; gap: 1.2rem; }
+.schedule-tabs { display: inline-flex; gap: .6rem; background: var(--blue-50); border: 1px solid var(--line); border-radius: 999px; padding: .4rem; align-self: flex-start; }
+.schedule-tab { border: 0; background: transparent; padding: .5rem 1.2rem; border-radius: 999px; font: inherit; font-weight: 600; color: var(--blue-800); cursor: pointer; transition: background .2s var(--ease), color .2s var(--ease); }
+.schedule-tab.active { background: var(--blue-700); color: #fff; }
+.schedule-panel { display: none; }
+.schedule-panel.active { display: block; }
+.schedule-table-wrap { width: 100%; }
+.schedule-table { min-width: 980px; font-size: .85rem; }
 .schedule-table th, .schedule-table td { padding: .6rem .7rem; white-space: nowrap; }
 .schedule-table td.servicio { background: var(--blue-50); color: var(--blue-800); font-weight: 600; }
-@media (max-width: 1200px) { .schedule-grid { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .schedule-tabs { align-self: stretch; justify-content: space-between; } .schedule-tab { flex: 1; text-align: center; } }
 .person h3 { font-family: var(--font-head); font-size: 1.1rem; color: var(--blue-900); margin-bottom: .25rem; }
 .role { font-size: .9rem; color: var(--blue-600); font-weight: 600; letter-spacing: .3px; }
 .person p.bio { color: var(--ink-soft); font-size: .9rem; margin-top: .7rem; }

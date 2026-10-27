@@ -44,7 +44,12 @@ function parseHorario(csvText: string) {
   let headerRowIndex = -1;
   for (let i = 0; i < parsed.length; i++) {
     const row = parsed[i];
-    if (row.some((c) => c.toUpperCase().includes('LUNES') || c.toUpperCase().includes('MARTES') || c.toUpperCase().includes('MIÉRCOLES') || c.toUpperCase().includes('JUEVES') || c.toUpperCase().includes('VIERNES') || c.toUpperCase().includes('SABADO'))) {
+    if (
+      row.some((c) => {
+        const u = c.toUpperCase();
+        return u.includes('LUNES') || u.includes('MARTES') || u.includes('MIÉRCOLES') || u.includes('JUEVES') || u.includes('VIERNES') || u.includes('SABADO') || u.includes('SÁBADO');
+      })
+    ) {
       headerRowIndex = i;
       break;
     }
@@ -60,21 +65,21 @@ function parseHorario(csvText: string) {
 
     const espacioCell = row.find((c) => c.toUpperCase().includes('ESPACIO'));
     if (espacioCell) {
-      if (espacioCell.toUpperCase().includes('ESPACIO 1')) {
+      const u = espacioCell.toUpperCase();
+      if (u.includes('ESPACIO 1')) {
         rows1.push(row);
         continue;
       }
-      if (espacioCell.toUpperCase().includes('ESPACIO 2')) {
+      if (u.includes('ESPACIO 2')) {
         rows2.push(row);
         continue;
       }
-      if (espacioCell.toUpperCase().includes('ESPACIO 3')) {
+      if (u.includes('ESPACIO 3')) {
         rows1.push(row);
         continue;
       }
     }
 
-    // Si no hay etiqueta de espacio, intenta asignar por patrón
     const hasLab = row.some((c) => c.toUpperCase().includes('LABORATORIO'));
     const hasSubject = row.some((c) => /\([^)]+\)/.test(c));
     if (hasLab || hasSubject) {
@@ -105,22 +110,26 @@ const { header, rows1, rows2 } = parseHorario(csv);
   <section class="section">
     <div class="container">
       {csv ? (
-        <div class="schedule-grid">
-          <div class="schedule-col">
-            <h2 class="schedule-title">Espacio 1</h2>
-            <div class="table-wrap">
+        <div class="schedule-wrap">
+          <div class="schedule-tabs" role="tablist" aria-label="Horarios por espacio">
+            <button class="schedule-tab active" data-tab="espacio1" role="tab" aria-selected="true">Espacio 1</button>
+            <button class="schedule-tab" data-tab="espacio2" role="tab" aria-selected="false">Espacio 2</button>
+          </div>
+
+          <div class="schedule-panel active" data-panel="espacio1" role="tabpanel">
+            <div class="table-wrap schedule-table-wrap">
               <table class="data schedule-table">
                 <thead>
                   <tr>
-                    {header.map((h, i) => (
+                    {header.map((h) => (
                       <th>{h}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {rows1.map((row, i) => (
+                  {rows1.map((row) => (
                     <tr>
-                      {row.map((cell, j) => (
+                      {row.map((cell) => (
                         <td class={cell.toUpperCase().includes('LABORATORIO S/ SERVICIO') ? 'servicio' : ''}>{cell}</td>
                       ))}
                     </tr>
@@ -130,21 +139,20 @@ const { header, rows1, rows2 } = parseHorario(csv);
             </div>
           </div>
 
-          <div class="schedule-col">
-            <h2 class="schedule-title">Espacio 2</h2>
-            <div class="table-wrap">
+          <div class="schedule-panel" data-panel="espacio2" role="tabpanel">
+            <div class="table-wrap schedule-table-wrap">
               <table class="data schedule-table">
                 <thead>
                   <tr>
-                    {header.map((h, i) => (
+                    {header.map((h) => (
                       <th>{h}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {rows2.map((row, i) => (
+                  {rows2.map((row) => (
                     <tr>
-                      {row.map((cell, j) => (
+                      {row.map((cell) => (
                         <td class={cell.toUpperCase().includes('LABORATORIO S/ SERVICIO') ? 'servicio' : ''}>{cell}</td>
                       ))}
                     </tr>
@@ -162,4 +170,21 @@ const { header, rows1, rows2 } = parseHorario(csv);
       )}
     </div>
   </section>
+
+  <script>
+    const tabs = document.querySelectorAll('.schedule-tab');
+    const panels = document.querySelectorAll('.schedule-panel');
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('data-tab');
+        tabs.forEach((t) => {
+          t.classList.toggle('active', t === tab);
+          t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+        });
+        panels.forEach((p) => {
+          p.classList.toggle('active', p.getAttribute('data-panel') === target);
+        });
+      });
+    });
+  </script>
 </Base>
